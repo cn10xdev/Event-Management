@@ -1,7 +1,6 @@
 # Event Management Admin
 
-The admin side of an event mangagement system I built for our college fest with
-the MERN stack.
+The admin side of an event mangagement system build with MERN Stack 
 
 ![overview](assets/overview.gif)
 
