@@ -68,3 +68,65 @@ who registered the payement.
   - `pdf-creator-node` for generating reports
   - `rword` for generating passowrds
   - `nodemailer` for sending mails
+
+## **Development Setup**
+
+### **Prerequisites**
+
+Ensure you have the following installed:
+
+* **Git**  
+* **Node.js**
+* **You also need to have mongodb cluster url and sendgrid api and password**
+
+# Project Setup Guide
+
+## Frontend
+
+1. Navigate to web folder and install dependencies
+
+   ```sh
+   cd web
+   npm i
+   ```
+
+2. Start the react app
+
+   ```sh
+   npm start
+   ```
+
+## Backend
+
+1. Navigate to web folder and install dependencies
+
+   ```sh
+   cd server
+   npm i
+   ```
+
+2. Add .env in the root directory. Here's an example env file for you.
+
+   ```sh
+    MONGO_URL =
+    senderEmail = 
+    senderPass =
+    sendgridKey = 
+   ```
+
+2. Start the backend server
+
+   ```sh
+   npm run dev
+   ```
+
+### To add seed data to the database
+1. Navigate to server folder and run file seed.js<br>
+  
+   ```sh
+   cd server
+   node seed.js
+   ```
+2. Then for login use credentials are:<br>
+- Username: **hello** <br>
+- Password: **generalk123**
