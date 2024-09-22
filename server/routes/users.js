@@ -116,8 +116,19 @@ router.post('/', async (req, res) => {
       return;
     }
 
-    const password = await mailer(email, rollNo);
-
+    let password;
+    try {
+      password = await mailer(email, rollNo);
+    } catch (error) {
+      console.error('Error sending email:', error.message);
+      res.send({
+        data: null,
+        error: {
+          message: 'something went wrong',
+        },
+      });
+      return;
+    }
     const user = new User({
       email,
       rollNo,

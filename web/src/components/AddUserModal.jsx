@@ -18,6 +18,7 @@ import {
 import { useState } from 'react';
 import { createHandleChange } from '../utils/createHandleChange';
 import easyFetch from '../utils/easyFetch';
+import { useToast } from '@chakra-ui/react';
 
 export default function AddUserModal({
   isOpen,
@@ -36,7 +37,7 @@ export default function AddUserModal({
   });
 
   const handleChange = createHandleChange(setFields, setErrors);
-
+  const toast = useToast();
   return (
     <Modal
       isOpen={isOpen}
@@ -65,6 +66,7 @@ export default function AddUserModal({
               />
               <FormHelperText>
                 For 'other' students leave this blank
+                {errors.message}
               </FormHelperText>
               <FormErrorMessage>{errors.name}</FormErrorMessage>
             </FormControl>
@@ -78,8 +80,8 @@ export default function AddUserModal({
                 value={fields.email}
                 onChange={handleChange}
               />
-              <FormErrorMessage>{errors.email}</FormErrorMessage>
             </FormControl>
+            
           </VStack>
         </ModalBody>
         <ModalFooter>
@@ -91,8 +93,25 @@ export default function AddUserModal({
               const { error } = await easyFetch('users', fields);
               setLoading(false);
               if (error) {
+                if(error.message){
+                  toast({
+                    title: "Error",
+                    description: error.message || "An error occurred. Please try again.",
+                    status: "error",
+                    duration: 2000,
+                    isClosable: true,
+                  });
+                }
                 setErrors(error);
+
               } else {
+                toast({
+                  title: "Success",
+                  description: "User added successfully",
+                  status: "success",
+                  duration: 2000,
+                  isClosable: true,
+                });
                 mutate();
                 onClose();
               }
