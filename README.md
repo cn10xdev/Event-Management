@@ -1,6 +1,6 @@
 # Event Management Admin
 
-The admin side of an event mangagement system build with MERN Stack 
+The admin side of an event mangagement system build with MERN Stack
 
 ![overview](assets/overview.gif)
 
@@ -75,9 +75,9 @@ who registered the payement.
 
 Ensure you have the following installed:
 
-* **Git**  
-* **Node.js**
-* **You also need to have mongodb cluster url and sendgrid api and password**
+- **Git**
+- **Node.js**
+- **You also need to have mongodb cluster url and sendgrid api and password**
 
 # Project Setup Guide
 
@@ -98,7 +98,7 @@ Ensure you have the following installed:
 
 ## Backend
 
-1. Navigate to web folder and install dependencies
+1. Navigate to server folder and install dependencies
 
    ```sh
    cd server
@@ -109,24 +109,27 @@ Ensure you have the following installed:
 
    ```sh
     MONGO_URL =
-    senderEmail = 
+    senderEmail =
     senderPass =
-    sendgridKey = 
+    sendgridKey =
    ```
 
-2. Start the backend server
+3. Start the backend server
 
    ```sh
    npm run dev
    ```
 
 ### To add seed data to the database
+
 1. Navigate to server folder and run file seed.js<br>
-  
+
    ```sh
    cd server
    node seed.js
    ```
+
 2. Then for login use credentials are:<br>
+
 - Username: **hello** <br>
 - Password: **generalk123**
