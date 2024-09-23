@@ -1,22 +1,28 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  Box,
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  IconButton,
+  Flex,
+  Heading,
   Input,
+  Button,
   InputGroup,
-  InputRightElement,
-  VStack,
-} from '@chakra-ui/react';
-import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
+  Stack,
+  InputLeftElement,
+  chakra,
+  Box,
+  Link,
+  Avatar,
+  FormControl,
+  FormHelperText,
+  InputRightElement
+} from "@chakra-ui/react";
 
 import { createHandleChange } from '../utils/createHandleChange';
 import easyFetch from '../utils/easyFetch';
 import useAuth from '../hooks/useAuth';
+import { FaUserAlt, FaLock } from "react-icons/fa";
+const CFaUserAlt = chakra(FaUserAlt);
+const CFaLock = chakra(FaLock);
 
 export default function Login() {
   const history = useHistory();
@@ -39,7 +45,6 @@ export default function Login() {
   });
 
   const handleChange = createHandleChange(setFields, setErrors);
-
   const handleSubmit = async () => {
     const response = await easyFetch('auth/login', fields);
     const { data, error } = response;
@@ -54,46 +59,81 @@ export default function Login() {
   };
 
   return (
-    <Box w='100%'>
-      <VStack w='400px' maxW='100%' mx='auto' spacing={4}>
-        <FormControl isInvalid={errors.username}>
-          <FormLabel htmlFor='username'>username</FormLabel>
-          <Input
-            id='username'
-            name='username'
-            placeholder='username'
-            value={fields.username}
-            onChange={handleChange}
-          />
-          <FormErrorMessage>{errors.username}</FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={errors.password}>
-          <FormLabel htmlFor='password'>password</FormLabel>
-          <InputGroup size='md'>
-            <Input
-              id='password'
-              name='password'
-              type={passShow ? 'text' : 'password'}
-              placeholder='password'
-              value={fields.password}
-              onChange={handleChange}
-            />
-            <InputRightElement width='4.5rem'>
-              <IconButton
-                aria-label={passShow ? 'Hide' : 'Show'}
-                icon={passShow ? <MdVisibility /> : <MdVisibilityOff />}
-                onClick={() => setPassShow(!passShow)}
-                colorScheme='green'
-                variant='ghost'
-              />
-            </InputRightElement>
-          </InputGroup>
-          <FormErrorMessage>{errors.password}</FormErrorMessage>
-        </FormControl>
-        <Button colorScheme='green' alignSelf='flex-end' onClick={handleSubmit}>
-          Log In
-        </Button>
-      </VStack>
-    </Box>
+
+    <Flex
+      flexDirection="column"
+      width="100wh"
+      height="100vh"
+      backgroundColor="gray.200"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack
+        flexDir="column"
+        mb="2"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Avatar bg="teal.500" />
+        <Heading color="teal.400">Welcome</Heading>
+        <Box minW={{ base: "90%", md: "468px" }}>
+          <form>
+            <Stack
+              spacing={4}
+              p="1rem"
+              backgroundColor="whiteAlpha.900"
+              boxShadow="md"
+            >
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<CFaUserAlt color="gray.300" />}
+                  />
+                  <Input id='username' name='username' placeholder='username' value={fields.username} onChange={handleChange} />
+                </InputGroup>
+              </FormControl>
+              <FormControl>
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    color="gray.300"
+                    children={<CFaLock color="gray.300" />}
+                  />
+
+                  <Input
+                    id='password'
+                    name='password'
+                    type={passShow ? 'text' : 'password'}
+                    placeholder='password'
+                    value={fields.password}
+                    onChange={handleChange}
+                  />
+
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={() => setPassShow(!passShow)}>
+                      {passShow ? "Hide" : "Show"}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                {/* <FormHelperText textAlign="right">
+                  <Link>forgot password?</Link>
+                </FormHelperText> */}
+              </FormControl>
+              <Button
+                borderRadius={0}
+                type="submit"
+                variant="solid"
+                colorScheme="teal"
+                width="full"
+                onClick={handleSubmit}
+              >
+                Login
+              </Button>
+            </Stack>
+          </form>
+        </Box>
+      </Stack>
+    </Flex>
   );
 }
