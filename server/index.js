@@ -70,6 +70,7 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/events", eventsRoutes);
 app.use("/payments", paymentsRoutes);
+console.log("hi");
 
 app.listen(port, () => {
   console.log(`🚀 Up at http://localhost:${port}`);
