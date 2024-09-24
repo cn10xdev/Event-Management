@@ -1,6 +1,6 @@
 # Event Management Admin
 
-The admin side of an event management system build with MERN Stack 
+The admin side of an event management system build with the MERN Stack 
 
 ![overview](assets/overview.gif)
 
@@ -17,7 +17,7 @@ Authentication with sessions
 ### Users
 
 Users page gives an overview of all the users registered. We can search and add
-users. A report of all the students as a CSV can also be generated.
+users. A report of all the students can also be generated as a CSV.
 
 ![users page](assets/users.png)
 
@@ -38,9 +38,9 @@ edit the existing ones or generate reports for each event.
 
 ### Payments
 
-A list of all the payments made is show on the payments page. We can search
+The Payments page displays a list of all payments made. We can search
 these payments based on the user's roll number or the username of the admin
-who registered the payement.
+who registered the payment.
 
 ![payments](assets/payments.png)
 
@@ -77,7 +77,7 @@ Ensure you have the following installed:
 
 * **Git**  
 * **Node.js**
-* **You also need to have mongodb cluster url and sendgrid api and password**
+* **You also need to have a MongoDB cluster URL and SendGrid API key and password**
 
 # Project Setup Guide
 
@@ -105,7 +105,7 @@ Ensure you have the following installed:
    npm i
    ```
 
-2. Add .env in the root directory. Here's an example env file for you.
+2. Add a .env in the root directory. Here's an example env file for you.
 
    ```sh
     MONGO_URL =
@@ -127,6 +127,6 @@ Ensure you have the following installed:
    cd server
    node seed.js
    ```
-2. Then for login use credentials are:<br>
+2. Then for login use the following credentials:<br>
 - Username: **hello** <br>
 - Password: **generalk123**
