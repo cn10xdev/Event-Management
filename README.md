@@ -98,7 +98,7 @@ Ensure you have the following installed:
 
 ## Backend
 
-1. Navigate to web folder and install dependencies
+1. Navigate to server folder and install dependencies
 
    ```sh
    cd server
