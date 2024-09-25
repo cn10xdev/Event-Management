@@ -1,7 +1,5 @@
 import { Text, Grid, Heading, HStack, Tooltip } from '@chakra-ui/react';
-
 import { MdPeopleOutline, MdPersonOutline } from 'react-icons/md';
-
 import useModeColors from '../hooks/useModeColors';
 import parseEventTime from '../utils/parseEventTime';
 
@@ -30,24 +28,23 @@ export default function EventCard({
   return (
     <Grid
       p={4}
-      w="100%"
-      borderWidth="2px"
-      borderRadius="lg"
-      gridTemplateColumns="80% 18%"
-      gridTemplateRows="auto min-content"
-      alignItems="center"
-      columnGap="2%"
-      rowGap={2}
+      w='100%'
+      borderWidth='2px'
+      borderRadius='lg'
+      gridTemplateColumns='auto max-content'
+      gridTemplateRows='auto max-content'
+      alignItems='center'
+      gap={4}
       _hover={{
         borderColor: green,
       }}
-      cursor="pointer"
+      cursor='pointer'
       onClick={() => {
         setEditEvent(eventCode);
         editEventOnOpen();
       }}
     >
-      <HStack alignItems="center">
+      <HStack>
         <Tooltip label={eventCode} aria-label={`event code is ${eventCode}`}>
           <Heading
             size="lg"
