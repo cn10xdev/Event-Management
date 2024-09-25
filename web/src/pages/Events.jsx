@@ -8,13 +8,15 @@ import {
   useBreakpointValue,
   useColorModeValue,
   useDisclosure,
+  Input,
+  VStack,
+  HStack,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { MdAdd } from 'react-icons/md';
+import { useState, useRef, useEffect } from 'react';
+import { MdAdd, MdSearch } from 'react-icons/md';
 import { mutate } from 'swr';
 import AddEventModal from '../components/AddEventModal';
 import EditEventModal from '../components/EditEventModal';
-
 import EventPanel from '../components/EventPanel';
 
 const days = [1, 2, 3];
@@ -30,7 +32,10 @@ export default function Events() {
   });
 
   const [editEvent, setEditEvent] = useState(null);
+  const [searchText, setSearchText] = useState('');
+  const [search, setSearch] = useState('');
 
+  const searchRef = useRef();
   const {
     isOpen: addEventIsOpen,
     onOpen: addEventOnOpen,
@@ -42,56 +47,90 @@ export default function Events() {
     onClose: editEventOnClose,
   } = useDisclosure();
 
+  function setNewSearch(newSearchText) {
+    setSearch(newSearchText);
+  }
+
+  useEffect(() => searchRef.current?.focus(), []);
+
   return (
     <>
-      <Tabs
-        colorScheme='green'
-        variant='solid-rounded'
-        isFitted
-        isLazy
-        isManual
-      >
-        <TabList>
-          <Tab>{tabTitle?.one}</Tab>
-          <Tab>{tabTitle?.two}</Tab>
-          <Tab>{tabTitle?.three}</Tab>
-          <IconButton
-            aria-label='add an event'
-            icon={<MdAdd fontSize='1.25rem' />}
+      <VStack spacing={6}>
+        <HStack w='100%'>
+          <Input
+            ref={searchRef}
+            type='text'
+            placeholder='Search Events'
             colorScheme='green'
-            bgColor={tabColor}
-            borderRadius='full'
+            value={searchText}
+            onChange={e => setSearchText(e.target.value)}
+            onKeyDown={async e => {
+              if (e.key === 'Enter') setNewSearch(searchText);
+            }}
+          />
+          <IconButton
+            colorScheme='green'
+            icon={<MdSearch fontSize='1.25rem' />}
+            onClick={() => setNewSearch(searchText)}
+          />
+          <IconButton
+            colorScheme='green'
+            variant='outline'
+            icon={<MdAdd fontSize='1.25rem' />}
             onClick={addEventOnOpen}
           />
-        </TabList>
-        <TabPanels>
-          {days.map(day => (
-            <TabPanel key={day} px={0} py={6}>
-              <EventPanel
-                day={day}
-                setEditEvent={setEditEvent}
-                editEventOnOpen={editEventOnOpen}
-              />
-            </TabPanel>
-          ))}
-        </TabPanels>
-      </Tabs>
-      {addEventIsOpen && (
-        <AddEventModal
-          isOpen={addEventIsOpen}
-          onClose={addEventOnClose}
-          mutateEvents={mutateEvents}
-        />
-      )}
-      {editEventIsOpen && editEvent && (
-        <EditEventModal
-          editEvent={editEvent}
-          setEditEvent={setEditEvent}
-          isOpen={editEventIsOpen}
-          onClose={editEventOnClose}
-          mutateEvents={mutateEvents}
-        />
-      )}
+        </HStack>
+        <Tabs
+          colorScheme='green'
+          variant='solid-rounded'
+          isFitted
+          isLazy
+          isManual
+        >
+          <TabList>
+            <Tab minW="310px">{tabTitle?.one}</Tab>
+            <Tab minW="310px">{tabTitle?.two}</Tab>
+            <Tab minW="310px">{tabTitle?.three}</Tab>
+            <IconButton
+              aria-label='add an event'
+              icon={<MdAdd fontSize='1.25rem' />}
+              colorScheme='green'
+              bgColor={tabColor}
+              borderRadius='full'
+              onClick={addEventOnOpen}
+
+            />
+          </TabList>
+          <TabPanels>
+            {days.map(day => (
+              <TabPanel key={day} px={0} py={6}>
+                <EventPanel
+                  day={day}
+                  setEditEvent={setEditEvent}
+                  editEventOnOpen={editEventOnOpen}
+                  searchQuery={search}
+                />
+              </TabPanel>
+            ))}
+          </TabPanels>
+        </Tabs>
+        {addEventIsOpen && (
+          <AddEventModal
+            isOpen={addEventIsOpen}
+            onClose={addEventOnClose}
+            mutateEvents={mutateEvents}
+          />
+        )}
+        {editEventIsOpen && editEvent && (
+          <EditEventModal
+            editEvent={editEvent}
+            setEditEvent={setEditEvent}
+            isOpen={editEventIsOpen}
+            onClose={editEventOnClose}
+            mutateEvents={mutateEvents}
+          />
+        )}
+      </VStack>
     </>
   );
 }
