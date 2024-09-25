@@ -1,12 +1,10 @@
 import { Grid } from '@chakra-ui/react';
-
 import Error from './Error';
 import EventCard from './EventCard';
 import Loading from './Loading';
-
 import useSWR from 'swr';
 
-export default function EventPanel({ day, setEditEvent, editEventOnOpen }) {
+export default function EventPanel({ day, setEditEvent, editEventOnOpen, searchQuery }) {
   const { data, error } = useSWR(`events/pages/${day}`);
 
   let eventList = null;
@@ -15,28 +13,34 @@ export default function EventPanel({ day, setEditEvent, editEventOnOpen }) {
   } else if (!data) {
     eventList = <Loading />;
   } else {
+
+    const filteredEvents = data.data.filter(event =>
+      !searchQuery || (event.title && event.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+
     eventList = (
       <Grid
         gridTemplateColumns={{
-          base: '100%',
-          md: '49% 49%',
-          xl: '32% 32% 32%',
+          base: '1fr',
+          md: 'repeat(2, 1fr)',
+          xl: 'repeat(3, 1fr)',
         }}
-        columnGap={{
-          md: '2%',
-          xl: '1%',
-        }}
-        rowGap={4}
+        gap={4}
         w='100%'
+        minW='400px'
       >
-        {data.data.map((event, ind) => (
-          <EventCard
-            key={ind}
-            event={event}
-            setEditEvent={setEditEvent}
-            editEventOnOpen={editEventOnOpen}
-          />
-        ))}
+        {filteredEvents.length > 0 ? (
+          filteredEvents.map((event, ind) => (
+            <EventCard
+              key={ind}
+              event={event}
+              setEditEvent={setEditEvent}
+              editEventOnOpen={editEventOnOpen}
+            />
+          ))
+        ) : (
+          <p>No events found</p>
+        )}
       </Grid>
     );
   }
