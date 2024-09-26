@@ -23,6 +23,10 @@ function NavButton({ children, link, func }) {
       fontSize='lg'
       p={3}
       colorScheme={`${active ? 'green' : 'white'}`}
+      textTransform= 'capitalize'
+      _hover={{
+        borderBottom: `3px solid ${active ? 'green' : 'black'}`
+      }}
       onClick={async () => {
         if (func) await func();
         if (link) history.push(link);
@@ -90,7 +94,7 @@ export default function Navbar() {
               <NavButton link='/users'>users</NavButton>
               <NavButton link='/events'>events</NavButton>
               <NavButton link='/payments'>payments</NavButton>
-              <NavButton func={logout}>log out</NavButton>
+              <NavButton func={logout}>logout</NavButton>
             </>
           )}
         </Stack>
