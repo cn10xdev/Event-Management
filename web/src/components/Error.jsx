@@ -5,7 +5,7 @@ export default function Error({ error = 'No Data found' }) {
   const { red } = useModeColors();
 
   return (
-    <Center h="300px">
+    <Center h="23rem">
       <Heading size='lg' textTransform='capitalize' color={red}>
         {error}
       </Heading>
