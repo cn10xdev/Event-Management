@@ -77,7 +77,7 @@ Ensure you have the following installed:
 
 * **Git**  
 * **Node.js**
-* **You also need to have mongodb cluster url and sendgrid api and password**
+* **You also need to have mongodb cluster url and gmail id , gmail password 
 
 # Project Setup Guide
 
@@ -98,7 +98,7 @@ Ensure you have the following installed:
 
 ## Backend
 
-1. Navigate to web folder and install dependencies
+1. Navigate to server folder and install dependencies
 
    ```sh
    cd server
@@ -109,9 +109,8 @@ Ensure you have the following installed:
 
    ```sh
     MONGO_URL =
-    senderEmail = 
-    senderPass =
-    sendgridKey = 
+    senderEmail =                      //gmail id
+    senderPass =                      // gmail pass key
    ```
 
 2. Start the backend server

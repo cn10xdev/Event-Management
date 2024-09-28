@@ -3,7 +3,7 @@ const router = express.Router();
 const isAuth = require('../middleware/isAuth');
 const User = require('../models/user');
 const { default: validator } = require('validator');
-const mailer = require('../utils/new_mailer');
+const mailer = require('../utils/mailer');
 const rollToDept = require('../utils/rollToDept');
 
 const path = require('path');
@@ -48,6 +48,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  
   try {
     let { rollNo, email } = req.body;
 
@@ -69,6 +70,7 @@ router.post('/', async (req, res) => {
       return;
     }
     if (!rollNo) {
+
       const lastUser = await User.findOne({})
         .sort('-rollNo')
         .select('-_id rollNo')
@@ -85,7 +87,9 @@ router.post('/', async (req, res) => {
         T: true,
         F: true,
       };
+
     } else if (!/^[12345]\d{5,6}$/.test(rollNo)) {
+
       res.send({
         data: null,
         error: {
@@ -95,8 +99,10 @@ router.post('/', async (req, res) => {
       return;
     }
 
+
     const userRollNo = await User.findOne({ rollNo });
     if (userRollNo) {
+
       res.send({
         data: null,
         error: {
@@ -105,8 +111,10 @@ router.post('/', async (req, res) => {
       });
       return;
     }
+
     const userEmail = await User.findOne({ email });
     if (userEmail) {
+
       res.send({
         data: null,
         error: {
@@ -115,8 +123,10 @@ router.post('/', async (req, res) => {
       });
       return;
     }
-
+    
+    // console.log("88888888888888")
     const password = await mailer(email, rollNo);
+    // console.log("3333333333333333333333333333333333")
 
     const user = new User({
       email,
