@@ -25,7 +25,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start2": "PORT=3001 react-scripts start",
-    "start2-w": "set PORT=3001 && react-scripts start"
+    "start2-w": "set PORT=3001 && react-scripts start",
+    "start4": "react-scripts --openssl-legacy-provider start"
   },
   "eslintConfig": {
     "extends": [
