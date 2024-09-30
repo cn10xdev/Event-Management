@@ -91,15 +91,6 @@ export default function Events() {
             <Tab minW="310px">{tabTitle?.one}</Tab>
             <Tab minW="310px">{tabTitle?.two}</Tab>
             <Tab minW="310px">{tabTitle?.three}</Tab>
-            <IconButton
-              aria-label='add an event'
-              icon={<MdAdd fontSize='1.25rem' />}
-              colorScheme='green'
-              bgColor={tabColor}
-              borderRadius='full'
-              onClick={addEventOnOpen}
-
-            />
           </TabList>
           <TabPanels>
             {days.map(day => (
