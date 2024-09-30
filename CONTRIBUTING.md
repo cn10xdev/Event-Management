@@ -100,7 +100,7 @@ Ensure you have the following installed:
 
 * **Git**  
 * **Node.js**
-* **You also need to have mongodb cluster url and sendgrid api and password**
+* **You also need to have mongodb cluster url and brevo api and password**
 
 # Project Setup Guide
 
@@ -134,7 +134,7 @@ Ensure you have the following installed:
     MONGO_URL =
     senderEmail = 
     senderPass =
-    sendgridKey = 
+    brevoAPIKey = 
    ```
 
 2. Start the backend server
