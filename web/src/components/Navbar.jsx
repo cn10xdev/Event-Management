@@ -19,8 +19,8 @@ function NavButton({ children, link, func }) {
 
   return (
     <Button
-      variant='ghost'
-      fontSize='lg'
+      variant="ghost"
+      fontSize="lg"
       p={3}
       colorScheme={`${active ? 'green' : 'white'}`}
       onClick={async () => {
@@ -54,18 +54,18 @@ export default function Navbar() {
 
   return (
     <Flex
-      as='nav'
-      w='100%'
-      wrap='wrap'
-      alignItems='center'
-      justifyContent='space-between'
+      as="nav"
+      w="100%"
+      wrap="wrap"
+      alignItems="center"
+      justifyContent="space-between"
       py={6}
       px={{ base: 8, lg: '15%' }}
     >
       <Heading
-        as='button'
-        fontSize='4xl'
-        colorScheme='green'
+        as="button"
+        fontSize="4xl"
+        colorScheme="green"
         onDoubleClick={toggleColorMode}
       >
         η_admin
@@ -84,13 +84,13 @@ export default function Navbar() {
           justify={['center', 'space-between', 'flex-end', 'flex-end']}
         >
           {loggedOut ? (
-            <NavButton link='/login'>login</NavButton>
+            <NavButton link="/login">login</NavButton>
           ) : (
             <>
-              <NavButton link='/users'>users</NavButton>
-              <NavButton link='/events'>events</NavButton>
-              <NavButton link='/payments'>payments</NavButton>
-              <NavButton func={logout}>log out</NavButton>
+              <NavButton link="/users">users</NavButton>
+              <NavButton link="/events">events</NavButton>
+              <NavButton link="/payments">payments</NavButton>
+              <NavButton func={logout}>logout</NavButton>
             </>
           )}
         </Stack>
