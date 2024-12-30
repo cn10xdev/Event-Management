@@ -49,11 +49,13 @@ export default function UserModal({
   const { data, error } = useSWR(`users/${rollNo}`);
 
   let content = null;
+  let moneyOwed = 0;
   if (error || data?.error) {
     content = <Heading>Something Went Wrong</Heading>;
   } else if (!data) {
     content = <Spinner />;
   } else if (data?.data) {
+    moneyOwed = data?.data?.moneyOwed || 0;
     content = <ModalDisplay user={data?.data} />;
   }
 
@@ -64,6 +66,7 @@ export default function UserModal({
   } = useDisclosure();
   const [amount, setAmount] = useState('');
   const amountRef = useRef();
+  const isAmountInvalid = parseFloat(amount) > moneyOwed;
 
   return (
     <>
@@ -103,6 +106,7 @@ export default function UserModal({
                 if (amount !== 0) paidConfOnOpen();
               }}
               borderLeftRadius={0}
+              isDisabled={isAmountInvalid} 
             >
               Paid
             </Button>

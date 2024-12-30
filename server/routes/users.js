@@ -49,7 +49,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    let { rollNo, email } = req.body;
+    let { rollNo, email, name, phoneNumber } = req.body;
 
     let criteria = {
       1: false,
@@ -95,6 +95,26 @@ router.post('/', async (req, res) => {
       return;
     }
 
+      if (!name || name.trim().length < 3) {
+        res.send({
+          data: null,
+          error: {
+            name: 'Name must be at least 3 characters long',
+          },
+        });
+        return;
+      }
+
+      if (!phoneNumber || !/^\d{10}$/.test(phoneNumber)) {
+        res.send({
+          data: null,
+          error: {
+            phoneNumber: 'Phone number must be 10 digits',
+          },
+        });
+        return;
+      }
+    
     const userRollNo = await User.findOne({ rollNo });
     if (userRollNo) {
       res.send({
@@ -121,6 +141,8 @@ router.post('/', async (req, res) => {
     const user = new User({
       email,
       rollNo,
+      phoneNumber,
+      name,
       criteria,
       department: rollToDept[rollNo[0]],
     });

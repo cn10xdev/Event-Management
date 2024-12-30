@@ -29,13 +29,27 @@ export default function AddUserModal({
   const [fields, setFields] = useState({
     rollNo: '',
     email: '',
+    phoneNumber: '',
+    name: ''
   });
   const [errors, setErrors] = useState({
     rollNo: null,
     email: null,
+    phoneNumber: '',
+    name: ''
   });
 
   const handleChange = createHandleChange(setFields, setErrors);
+
+  const resetFields = () => {
+    setFields({
+      rollNo: '',
+      email: '',
+      name: '',
+      phoneNumber: ''
+    });
+  };
+
 
   return (
     <Modal
@@ -68,6 +82,19 @@ export default function AddUserModal({
               </FormHelperText>
               <FormErrorMessage>{errors.name}</FormErrorMessage>
             </FormControl>
+
+            <FormControl isInvalid={errors.name}>
+              <FormLabel htmlFor='name'>name</FormLabel>
+              <Input
+                id='name'
+                name='name'
+                placeholder=''
+                value={fields.name}
+                onChange={handleChange}
+              />
+              <FormErrorMessage>{errors.name}</FormErrorMessage>
+            </FormControl>
+
             <FormControl isInvalid={errors.email}>
               <FormLabel>email</FormLabel>
               <Input
@@ -79,6 +106,18 @@ export default function AddUserModal({
                 onChange={handleChange}
               />
               <FormErrorMessage>{errors.email}</FormErrorMessage>
+
+            </FormControl>
+            <FormControl isInvalid={errors.phoneNumber}>
+              <FormLabel htmlFor='phone'>phone number</FormLabel>
+              <Input
+                id='phoneNumber'
+                name='phoneNumber'
+                placeholder=''
+                value={fields.phoneNumber}
+                onChange={handleChange}
+              />
+              <FormErrorMessage>{errors.phoneNumber}</FormErrorMessage>
             </FormControl>
           </VStack>
         </ModalBody>
@@ -93,6 +132,7 @@ export default function AddUserModal({
               if (error) {
                 setErrors(error);
               } else {
+                resetFields();
                 mutate();
                 onClose();
               }
