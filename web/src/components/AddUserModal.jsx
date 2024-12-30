@@ -37,6 +37,14 @@ export default function AddUserModal({
 
   const handleChange = createHandleChange(setFields, setErrors);
 
+  const resetFields = () => {
+    setFields({
+      rollNo: '',
+      email: '',
+    });
+  };
+
+
   return (
     <Modal
       isOpen={isOpen}
@@ -93,6 +101,7 @@ export default function AddUserModal({
               if (error) {
                 setErrors(error);
               } else {
+                resetFields();
                 mutate();
                 onClose();
               }
