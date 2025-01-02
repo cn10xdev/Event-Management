@@ -14,13 +14,15 @@ import {
   Avatar,
   FormControl,
   FormHelperText,
-  InputRightElement
+  InputRightElement,
+  useToast
 } from "@chakra-ui/react";
 
 import { createHandleChange } from '../utils/createHandleChange';
 import easyFetch from '../utils/easyFetch';
 import useAuth from '../hooks/useAuth';
 import { FaUserAlt, FaLock } from "react-icons/fa";
+import createToastOptions from '../utils/createToastOptions';
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
@@ -43,21 +45,27 @@ export default function Login() {
     username: null,
     password: null,
   });
+  const successToast = useToast(createToastOptions('Login successfull!'));
+  const failedToast = useToast(
+    createToastOptions('Login failed!', 'error')
 
+  );
   const handleChange = createHandleChange(setFields, setErrors);
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const response = await easyFetch('auth/login', fields);
     const { data, error } = response;
     if (error) {
       error.map(({ field, message }) =>
         setErrors({ ...errors, [field]: message })
-      );
+        );
+      failedToast();
     } else {
+      successToast();
       await userMutate(data, false);
       history.push('/users');
     }
   };
-
   return (
 
     <Flex
