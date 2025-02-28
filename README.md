@@ -14,20 +14,7 @@ Authentication with sessions
 
 ![login page](assets/login.png)
 
-### Users
-
-Users page gives an overview of all the users registered. We can search and add
-users. A report of all the students as a CSV can also be generated.
-
-![users page](assets/users.png)
-
-![user modal](assets/user_modal.png)
-
-![add user](assets/add_user.png)
-
-### Events
-
-Events page contains all the events filtered by day. We can add new events here,
+ by day. We can add new events here,
 edit the existing ones or generate reports for each event.
 
 ![events page](assets/events.png)
